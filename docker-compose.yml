@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:13.4
+    privileged: true
+    ports:
+      - 24330:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: news
+
+  backend:
+    build: ./backened
+    ports:
+      - 5000:5000
+    restart: always
+    command: bash -c "
+      flask db upgrade &&
+      gunicorn wsgi:app -b 0.0.0.0:5000
+      "
+    depends_on:
+      - db
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    depends_on:
+      - backend

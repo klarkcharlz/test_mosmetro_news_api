@@ -1,0 +1,5 @@
+NEWS_BLOCK_PATH = "//div[@class='news news_first-page']"
+BLOCK_PATH = "//a[@class='news-card' or @class='news-card hidden']"
+TITLE_PATH = "div[@class='news-card__caption']/text()"
+IMG_URL_PATH = "div[@class='news-card__image']/@style"
+DATE_PATH = "div[@class='news-card__date']/text()"
